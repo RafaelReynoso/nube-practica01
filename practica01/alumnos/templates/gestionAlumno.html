@@ -1,0 +1,83 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de Alumnos {% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Agregar Alumno</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/registrarAlumno/" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="txtCodigo">Código:</label>
+                            <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" maxlength="6" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtNombre">Nombre:</label>
+                            <input type="text" id="txtNombre" name="txtNombre" class="form-control" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtApellido">Apellido:</label>
+                            <input type="text" id="txtApellido" name="txtApellido" class="form-control" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numTelefono">Teléfono:</label>
+                            <input type="text" id="numTelefono" name="numTelefono" class="form-control" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtEmail">Email:</label>
+                            <input type="text" id="txtEmail" name="txtEmail" class="form-control" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtSeccion">Sección:</label>
+                            <input type="text" id="txtSeccion" name="txtSeccion" class="form-control" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-3">Lista de Alumnos</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Sección</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for a in alumno %}
+                        <tr>
+                            <td>{{ a.codigo }}</td>
+                            <td>{{ a.nombre }}</td>
+                            <td>{{ a.apellido }}</td>
+                            <td>{{ a.telefono }}</td>
+                            <td>{{ a.email }}</td>
+                            <td>{{ a.seccion }}</td>
+                            <td>
+                                <a href="edicionAlumno/{{ a.alumno }}" class="btn btn-info btn-sm">Editar</a>
+                                <a href="eliminacionAlumno/{{ a.alumno }}" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
